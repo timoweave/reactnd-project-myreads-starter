@@ -14,7 +14,7 @@ function index(): void {
     }
     const app = (
         <BrowserRouter>
-            <App/>
+          <App/>
         </BrowserRouter>
     );
     ReactDOM.render(app, root);

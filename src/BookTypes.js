@@ -1,4 +1,3 @@
-
 const Move: "move" = "move";
 const CurrentlyReading: "currentlyReading" = "currentlyReading";
 const WantToRead: "wantToRead" = "wantToRead";

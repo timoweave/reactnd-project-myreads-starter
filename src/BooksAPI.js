@@ -1,6 +1,6 @@
 import type {BookItem} from './BookTypes';
 
-const api = "https://reactnd-books-api.udacity.com"
+const api = "https://reactnd-books-api.udacity.com";
 
 // Generate a unique token for storing your bookshelf data on the backend server.
 
@@ -58,4 +58,3 @@ export const search = (query: string, maxResults: number): Promise<Array<BookIte
         return res.json();
     }).then(data => data.books);
 };
-    
