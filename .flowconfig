@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/.*
+.*/src/App.test.js
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+all=true
+
+[strict]
