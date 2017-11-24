@@ -3,13 +3,13 @@ import Book from './Book';
 import './BookList.css';
 
 import type {Element} from 'react';
-import type {BookInfo, BookStatus,} from './BookTypes';
+import type {BookInfo, BookStatus} from './BookTypes';
 
 export type Props = {
     +shelf: BookStatus,
     +title: string,
     +books: ?Array<BookInfo>,
-    update: (book: BookInfo, shelf: BookReadingStatus) => void,
+    update: (book: BookInfo, shelf: BookStatus) => void,
 };
 
 export type State = {

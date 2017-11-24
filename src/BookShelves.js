@@ -4,11 +4,11 @@ import BookList from './BookList';
 import {CurrentRead, WantToRead, AlreadyRead} from './BookTypes';
 import './App.css';
 
-import type {BookInfo, BookReadingStatus} from './BookTypes';
+import type {BookInfo, BookStatus} from './BookTypes';
 
 export type Props = {
     books: ?Array<BookInfo>,
-    update: (book: BookInfo, shelf: BookReadingStatus) => void,
+    update: (book: BookInfo, shelf: BookStatus) => void,
 };
 
 export type State = {

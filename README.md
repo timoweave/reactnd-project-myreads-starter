@@ -11,6 +11,18 @@ To get started developing right away:
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
+## Component Structures
+
+1. App (router: either book-shelves or book-search)
+  1. (show books shelves, route "/")
+    1. BookShelves (3 shelves: current-read, want-to-read, already-read)
+    1. BookList (list of book of the same shelf)
+    1. Book (info, title, author, photo, shelf, which can be changed)
+  1. (search books, route "/search")
+    1. BookSearch
+    1. Book
+  
+*
 ## What You're Getting
 ```bash
 ├── CONTRIBUTING.md

@@ -3,11 +3,11 @@ import {bookStatusDescriptionArray as status_list} from './BookTypes';
 import "./Book.css";
 
 import type {Element} from 'react';
-import type {BookInfo, BookReadingStatus, BookStatusDescription as Status} from './BookTypes';
+import type {BookInfo, BookStatus, BookStatusDescription as Status} from './BookTypes';
 
 export type Props = {
     book: BookInfo,
-    update: (book: BookInfo, shelf: BookReadingStatus) => void,
+    update: (book: BookInfo, shelf: BookStatus) => void,
 };
 
 export type State = {
@@ -15,7 +15,7 @@ export type State = {
 
 class Book extends Component<Props, State> {
 
-    update = (event): void => {
+    update = (event: *): void => {
         const shelf = event.target.value;
         const {book}  = this.props;
         this.props.update(book, shelf);

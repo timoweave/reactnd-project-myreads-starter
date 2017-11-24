@@ -27,6 +27,7 @@ export type ReadingModes = {
     image: boolean,
 };
 
+
 export type BookInfo = {
     shelf: BookStatus,
     title: string,
@@ -67,6 +68,8 @@ export type BookReadingStatus = {
 };
 
 export type BookReadingStatusArray = Array<BookReadingStatus>;
+
+export type InputEventHandler = (event: SyntheticInputEvent<HTMLInputElement>) => void;
 
 const bookStatusDescriptionArray: Array<BookStatusDescription> = [
     {value: Move, description: "Move to ..."},

@@ -1,11 +1,12 @@
 import React from 'react';
 import BookShelves from './BookShelves';
-// import {BrowserRouter, Route} from 'react-router-dom';
+import BookSearch from './BookSearch';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {getAll, update} from './BooksAPI';
+import {getAll, update, search} from './BooksAPI';
 import './App.css';
 
-import type {BookInfo} from './BookTypes';
+import type {Element} from 'react';
+import type {BookInfo, BookStatus} from './BookTypes';
 
 export type Props = {
 };
@@ -14,7 +15,7 @@ export type State = {
     books: ?Array<BookInfo>,
 };
 
-class BooksApp extends React.Component<Props, State> {
+class App extends React.Component<Props, State> {
     state = {
         books: null,
     }
@@ -25,7 +26,7 @@ class BooksApp extends React.Component<Props, State> {
         });
     }
 
-    changeShelf = (book: BookInfo, shelf: BookReadingStatus): void => {
+    change = (book: BookInfo, shelf: BookStatus): void => {
         const {books = null} = this.state;
         if (books === null) {
             return;
@@ -47,18 +48,31 @@ class BooksApp extends React.Component<Props, State> {
             });
     };
 
+    find = (query: string, max: number = 20): void => {
+        search(query, max).then((books: Array<BookInfo>): void => {
+            console.log({books});
+            this.setState({books});
+        });
+    };
+
     render(): Element<typeof BrowserRouter> {
         const {books} = this.state;
+        const shelves = (props: *): Element<typeof BookShelves> => (
+                <BookShelves books={books} update={this.change}/>
+        );
+        const search = (props: *): Element<typeof BookSearch> => (
+                <BookSearch books={books} update={this.change} search={this.find}/>
+        );
         return (
            <BrowserRouter>
               <Switch>
-                <Route exact path="/" render={(history) => (<BookShelves books={books} update={this.changeShelf}/>)}/>
-                <Route exact path="/search" render={(history) => (<div>hello search</div>)}/>
-                <Route render={(history) => (<BookShelves books={books} update={this.changeShelf}/>)}/>
+                <Route exact path="/" component={shelves}/>
+                <Route exact path="/search" component={search}/>
+                <Route component={shelves}/>
               </Switch>
           </BrowserRouter>
         );
     }
 }
 
-export default BooksApp
+export default App

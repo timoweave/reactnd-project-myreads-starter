@@ -1,4 +1,4 @@
-import type {BookInfo} from './BookTypes';
+import type {BookInfo, BookStatus} from './BookTypes';
 
 const api = "https://reactnd-books-api.udacity.com";
 
@@ -14,24 +14,28 @@ const headers = {
 }
 
 export const get = (bookId: string): Promise<BookInfo> => {
-    return fetch(`${api}/books/${bookId}`, { headers })
-        .then(res => {
-            console.log({get: res.json()});
-            return res.json();
-        })
-        .then(data => data.book);
+    return fetch(`${api}/books/${bookId}`, {
+        headers
+    }).then(res => {
+        console.log({get: res.json()});
+        return res.json();
+    }).then(data => {
+        return data.book;
+    });
 };
 
 export const getAll = (): Promise<Array<BookInfo>> => {
-    return fetch(`${api}/books`, { headers })
-        .then(res => res.json())
-        .then(data => {
-            console.log({getAll: data.books});
-            return data.books;
-        });
+    return fetch(`${api}/books`, {
+        headers
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        console.log({getAll: data.books});
+        return data.books;
+    });
 };
 
-export const update = (book: BookInfo, shelf: string): Promise<Response> => {
+export const update = (book: BookInfo, shelf: BookStatus): Promise<Response> => {
     return fetch(`${api}/books/${book.id}`, {
         method: 'PUT',
         headers: {
@@ -42,7 +46,7 @@ export const update = (book: BookInfo, shelf: string): Promise<Response> => {
     }).then(res => {
         console.log({update: res.json()});
         return res.json();
-    })
+    });
 };
 
 export const search = (query: string, maxResults: number): Promise<Array<BookInfo>> => {
@@ -54,7 +58,10 @@ export const search = (query: string, maxResults: number): Promise<Array<BookInf
         },
         body: JSON.stringify({ query, maxResults })
     }).then(res => {
-        console.log({search: res.json()});
+        console.log({search: res.json(), res, body: res.body});
         return res.json();
-    }).then(data => data.books);
+    }).then(data => {
+        console.log({books: data.books, data});
+        return data.books;
+    });
 };
