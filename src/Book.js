@@ -3,16 +3,23 @@ import {bookStatusDescriptionArray as status_list} from './BookTypes';
 import "./Book.css";
 
 import type {Element} from 'react';
-import type {BookItem, BookStatusDescription as Status} from './BookTypes';
+import type {BookInfo, BookReadingStatus, BookStatusDescription as Status} from './BookTypes';
 
 export type Props = {
-    book: BookItem,
+    book: BookInfo,
+    update: (book: BookInfo, shelf: BookReadingStatus) => void,
 };
 
 export type State = {
 };
 
 class Book extends Component<Props, State> {
+
+    update = (event): void => {
+        const shelf = event.target.value;
+        const {book}  = this.props;
+        this.props.update(book, shelf);
+    };
 
     render(): Element<'div'> {
         const {title, authors, imageLinks, shelf} = this.props.book;
@@ -25,9 +32,9 @@ class Book extends Component<Props, State> {
               <div className="book_top">
                 <div className="book_cover" style={img}/>
                 <div className="book_shelf_changer">
-                  <select>
+                  <select onChange={this.update} defaultValue={shelf}>
                     {status_list.map((opt: Status): Element<'option'> => (
-                        <option key={opt.value} value={opt.value} selected={opt.value === shelf}>
+                        <option key={opt.value} value={opt.value}>
                           {opt.description}
                         </option>
                     ))}

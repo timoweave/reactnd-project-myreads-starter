@@ -1,17 +1,17 @@
 import React from 'react';
-import Book from './Book';
-import BookList from './BookList';
-import {getAll} from './BooksAPI';
-import {Move, CurrentlyReading, WantToRead, DoneReading} from './BookTypes';
+import BookShelves from './BookShelves';
+// import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {getAll, update} from './BooksAPI';
 import './App.css';
 
-import type {BookItem} from './BookTypes';
+import type {BookInfo} from './BookTypes';
 
 export type Props = {
 };
 
 export type State = {
-    books: ?Array<BookItem>,
+    books: ?Array<BookInfo>,
 };
 
 class BooksApp extends React.Component<Props, State> {
@@ -20,31 +20,43 @@ class BooksApp extends React.Component<Props, State> {
     }
 
     componentDidMount(): void {
-        getAll().then((books: Array<BookItem>) => {
+        getAll().then((books: Array<BookInfo>) => {
             this.setState({books});
         });
     }
 
-    render() {
-        const {books} = this.state;
-        if (books === null) { return null; }
+    changeShelf = (book: BookInfo, shelf: BookReadingStatus): void => {
+        const {books = null} = this.state;
+        if (books === null) {
+            return;
+        }
 
+        this.setState({
+            books: books.map((book_i: BookInfo): BookInfo => ({
+                ...book_i,
+                shelf: (book_i.id !== book.id) ? book_i.shelf : shelf,
+            })),
+        });
+
+        update(book, shelf)
+            .then((response) => {
+                console.log({book, shelf, response});
+            })
+            .catch((error) => {
+                console.error({book, shelf, error});
+            });
+    };
+
+    render(): Element<typeof BrowserRouter> {
+        const {books} = this.state;
         return (
-            <div className="app">
-              <div className="list-books">
-                <div className="list-books-title">
-                  <h1>MyReads</h1>
-                </div>
-                <div className="list-books-content">
-                  <BookList shelf={CurrentlyReading} title="Currently Reading" books={books}/>
-                  <BookList shelf={WantToRead} title="Want to Read" books={books}/>
-                  <BookList shelf={DoneReading} title="Read" books={books}/>
-                </div>
-                <div className="open-search">
-                  <a onClick={() => console.log("add a book")}>Add a book</a>
-                </div>
-              </div>
-            </div>
+           <BrowserRouter>
+              <Switch>
+                <Route exact path="/" render={(history) => (<BookShelves books={books} update={this.changeShelf}/>)}/>
+                <Route exact path="/search" render={(history) => (<div>hello search</div>)}/>
+                <Route render={(history) => (<BookShelves books={books} update={this.changeShelf}/>)}/>
+              </Switch>
+          </BrowserRouter>
         );
     }
 }

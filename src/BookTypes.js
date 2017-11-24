@@ -1,11 +1,11 @@
 const Move: "move" = "move";
-const CurrentlyReading: "currentlyReading" = "currentlyReading";
+const CurrentRead: "currentlyReading" = "currentlyReading";
 const WantToRead: "wantToRead" = "wantToRead";
-const DoneReading: "read" = "read";
+const AlreadyRead: "read" = "read";
 const None: "none" = "none";
 
-export type BookStatus = typeof Move | typeof CurrentlyReading | typeof WantToRead |
-                         typeof DoneReading | typeof None;
+export type BookStatus = typeof Move | typeof CurrentRead | typeof WantToRead |
+                         typeof AlreadyRead | typeof None;
 
 export type IndustryIdentifier = {
     identifier: string,
@@ -27,7 +27,7 @@ export type ReadingModes = {
     image: boolean,
 };
 
-export type BookItem = {
+export type BookInfo = {
     shelf: BookStatus,
     title: string,
     subtitle: string,
@@ -70,13 +70,13 @@ export type BookReadingStatusArray = Array<BookReadingStatus>;
 
 const bookStatusDescriptionArray: Array<BookStatusDescription> = [
     {value: Move, description: "Move to ..."},
-    {value: CurrentlyReading, description: "Currently Reading"},
+    {value: CurrentRead, description: "Currently Reading"},
     {value: WantToRead, description: "Want to Read"},
-    {value: DoneReading, description: "Read"},
+    {value: AlreadyRead, description: "Read"},
     {value: None, description: "None"},
 ];
 
 module.exports = {
-    Move, CurrentlyReading, WantToRead, DoneReading, None,
+    Move, CurrentRead, WantToRead, AlreadyRead, None,
     bookStatusDescriptionArray,
 };

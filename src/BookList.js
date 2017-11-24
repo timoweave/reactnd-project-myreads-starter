@@ -1,15 +1,15 @@
 import React from 'react';
 import Book from './Book';
-import * as BooksAPI from './BooksAPI';
 import './BookList.css';
 
 import type {Element} from 'react';
-import type {BookItem, BookStatus,} from './BookTypes';
+import type {BookInfo, BookStatus,} from './BookTypes';
 
 export type Props = {
     +shelf: BookStatus,
     +title: string,
-    +books: ?Array<BookItem>,
+    +books: ?Array<BookInfo>,
+    update: (book: BookInfo, shelf: BookReadingStatus) => void,
 };
 
 export type State = {
@@ -17,7 +17,7 @@ export type State = {
 
 class BookList extends React.Component<Props, State> {
     render(): Element<'div'> {
-        const {books, title, shelf} = this.props;
+        const {books, title, shelf, update} = this.props;
 
         return (
             <div className="bookshelf">
@@ -25,9 +25,9 @@ class BookList extends React.Component<Props, State> {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {books && books
-                      .filter((book: BookItem): boolean => book.shelf === shelf)
-                      .map((book: BookItem): Element<typeof Book> => (
-                          <Book key={book.id} book={book}/>
+                      .filter((book: BookInfo): boolean => book.shelf === shelf)
+                      .map((book: BookInfo): Element<typeof Book> => (
+                            <Book key={book.id} book={book} update={update}/>
                       ))}
                 </ol>
               </div>

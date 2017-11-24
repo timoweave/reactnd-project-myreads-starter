@@ -1,4 +1,4 @@
-import type {BookItem} from './BookTypes';
+import type {BookInfo} from './BookTypes';
 
 const api = "https://reactnd-books-api.udacity.com";
 
@@ -13,7 +13,7 @@ const headers = {
   'Authorization': token
 }
 
-export const get = (bookId: string): Promise<BookItem> => {
+export const get = (bookId: string): Promise<BookInfo> => {
     return fetch(`${api}/books/${bookId}`, { headers })
         .then(res => {
             console.log({get: res.json()});
@@ -22,7 +22,7 @@ export const get = (bookId: string): Promise<BookItem> => {
         .then(data => data.book);
 };
 
-export const getAll = (): Promise<Array<BookItem>> => {
+export const getAll = (): Promise<Array<BookInfo>> => {
     return fetch(`${api}/books`, { headers })
         .then(res => res.json())
         .then(data => {
@@ -31,7 +31,7 @@ export const getAll = (): Promise<Array<BookItem>> => {
         });
 };
 
-export const update = (book: BookItem, shelf: string): Promise<Response> => {
+export const update = (book: BookInfo, shelf: string): Promise<Response> => {
     return fetch(`${api}/books/${book.id}`, {
         method: 'PUT',
         headers: {
@@ -45,7 +45,7 @@ export const update = (book: BookItem, shelf: string): Promise<Response> => {
     })
 };
 
-export const search = (query: string, maxResults: number): Promise<Array<BookItem>> => {
+export const search = (query: string, maxResults: number): Promise<Array<BookInfo>> => {
     return fetch(`${api}/search`, {
         method: 'POST',
         headers: {
