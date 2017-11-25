@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import Book from './Book';
-import {bookStatusDescriptionArray as status_list} from './BookTypes';
-
-import {search} from './BooksAPI';
 import "./BookSearch.css";
 import "./App.css";
 
@@ -32,7 +29,7 @@ class BookSearch extends Component<Props, State> {
     find: InputEventHandler = (event: SyntheticInputEvent<HTMLInputElement>): void => {
         const {maxResults} = this.state;
         const {value: query} = event.target;
-        console.log({query});        
+        console.log({query});
         this.setState({query});
         this.props.search(query, maxResults);
     };
@@ -40,7 +37,7 @@ class BookSearch extends Component<Props, State> {
     render(): Element<'div'> {
         const {update} = this.props;
         const {query/*, books*/} = this.state;
-        const {books} = this.props;        
+        const {books} = this.props;
         return (
           <div className="search-books">
             <div className="search-books-bar">
