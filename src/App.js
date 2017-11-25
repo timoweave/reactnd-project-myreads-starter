@@ -12,11 +12,11 @@ export type Props = {
 };
 
 export type State = {
-    books: ?Array<BookInfo>,
+   books: ?Array<BookInfo>,
 };
 
 class App extends React.Component<Props, State> {
-    state = {
+    state: State = {
         books: null,
     }
 

@@ -9,7 +9,7 @@ export type Props = {
     +shelf: BookStatus,
     +title: string,
     +books: ?Array<BookInfo>,
-    update: (book: BookInfo, shelf: BookStatus) => void,
+    +update: (book: BookInfo, shelf: BookStatus) => void,
 };
 
 export type State = {

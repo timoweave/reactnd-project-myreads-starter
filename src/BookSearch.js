@@ -11,9 +11,9 @@ import type {BookInfo, BookStatus} from './BookTypes';
 import type {InputEventHandler} from './BookTypes';
 
 export type Props = {
-    books: ?Array<BookInfo>,
-    update: (book: BookInfo, shelf: BookStatus) => void,
-    search: (query: string, max: number) => void,
+    +books: ?Array<BookInfo>,
+    +update: (book: BookInfo, shelf: BookStatus) => void,
+    +search: (query: string, max: number) => void,
 };
 
 export type State = {

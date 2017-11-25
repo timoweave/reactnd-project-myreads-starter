@@ -6,8 +6,8 @@ import type {Element} from 'react';
 import type {BookInfo, BookStatus, BookStatusDescription as Status} from './BookTypes';
 
 export type Props = {
-    book: BookInfo,
-    update: (book: BookInfo, shelf: BookStatus) => void,
+    +book: BookInfo,
+    +update: (book: BookInfo, shelf: BookStatus) => void,
 };
 
 export type State = {

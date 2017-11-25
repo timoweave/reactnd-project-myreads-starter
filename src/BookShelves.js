@@ -7,8 +7,8 @@ import './App.css';
 import type {BookInfo, BookStatus} from './BookTypes';
 
 export type Props = {
-    books: ?Array<BookInfo>,
-    update: (book: BookInfo, shelf: BookStatus) => void,
+    +books: ?Array<BookInfo>,
+    +update: (book: BookInfo, shelf: BookStatus) => void,
 };
 
 export type State = {
